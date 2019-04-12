@@ -1,12 +1,16 @@
 package com.syxt.factory;
 
-import com.syxt.service.IStructAlgResWService;
-import com.syxt.service.impl.StructAlgResWServiceImpl;
+import com.syxt.service.IDeviceService;
+import com.syxt.service.IAlarmInfoService;
+import com.syxt.service.impl.DeviceServiceImpl;
+import com.syxt.service.impl.AlarmInfoServiceImpl;
 
 
 public class ServiceFactory {
-	public static IStructAlgResWService getIEmpServiceInstance(){
-		return new StructAlgResWServiceImpl();
+	public static IAlarmInfoService getIAlarmInfoServiceInstance(){
+		return new AlarmInfoServiceImpl();
 	}
-	
+	public static IDeviceService getIDeviceServiceInstance(){
+		return new DeviceServiceImpl();
+	}
 }

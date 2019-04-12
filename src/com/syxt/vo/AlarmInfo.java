@@ -1,6 +1,6 @@
 package com.syxt.vo;
 
-public class StructAlgResW {
+public class AlarmInfo {
 
 	private String ip;
 	private Integer dspstate;

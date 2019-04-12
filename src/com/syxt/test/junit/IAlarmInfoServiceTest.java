@@ -8,16 +8,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.syxt.factory.ServiceFactory;
-import com.syxt.service.impl.StructAlgResWServiceImpl;
-import com.syxt.vo.StructAlgResW;
+import com.syxt.vo.AlarmInfo;
 
 import junit.framework.TestCase;
 
-public class IStructAlgResWServiceTest {
-    private static final Logger logger=LoggerFactory.getLogger(StructAlgResWServiceImpl.class);
+public class IAlarmInfoServiceTest {
+    private static final Logger logger=LoggerFactory.getLogger(IAlarmInfoServiceTest.class);
 	@Test
 	public void testInsert() {
-		StructAlgResW vo=new StructAlgResW();
+		AlarmInfo vo=new AlarmInfo();
 		vo.setIp("192.168.0.1");
 		vo.setDspstate(1);
 		vo.setAlarm_probability(0.1f);
@@ -30,7 +29,7 @@ public class IStructAlgResWServiceTest {
 		vo.setCh_num(100);
 		vo.setAlarm_date(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		try {
-			TestCase.assertTrue(ServiceFactory.getIEmpServiceInstance().insert(vo));
+			TestCase.assertTrue(ServiceFactory.getIAlarmInfoServiceInstance().insert(vo));
 		} catch (Exception e) {
 			logger.error("插入数据测试异常",e);
 		}
@@ -38,7 +37,7 @@ public class IStructAlgResWServiceTest {
 
 	@Test
 	public void testUpdate() {
-		StructAlgResW vo=new StructAlgResW();
+		AlarmInfo vo=new AlarmInfo();
 		vo.setIp("192.168.0.1");
 		vo.setDspstate(1);
 		vo.setAlarm_probability(1.1f);
@@ -51,7 +50,7 @@ public class IStructAlgResWServiceTest {
 		vo.setCh_num(100);
 		vo.setAlarm_date(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		try {
-			TestCase.assertTrue(ServiceFactory.getIEmpServiceInstance().update(vo));
+			TestCase.assertTrue(ServiceFactory.getIAlarmInfoServiceInstance().update(vo));
 			logger.debug("修改数据测试");
 		} catch (Exception e) {
 			logger.error("修改数据测试异常",e);

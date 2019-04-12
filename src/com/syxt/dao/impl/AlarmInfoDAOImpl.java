@@ -6,20 +6,20 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.Set;
 
-import com.syxt.dao.IStructAlgResWDAO;
-import com.syxt.vo.StructAlgResW;
+import com.syxt.dao.IAlarmInfoDAO;
+import com.syxt.vo.AlarmInfo;
 
-public class StructAlgResWDAOImpl implements IStructAlgResWDAO {
+public class AlarmInfoDAOImpl implements IAlarmInfoDAO {
 
 	    private Connection conn;
 	    private PreparedStatement pstmt;
 	   
-	    public StructAlgResWDAOImpl(Connection conn){
+	    public AlarmInfoDAOImpl(Connection conn){
 	    	this.conn=conn;
 	    }
 		@Override
-		public boolean doCreate(StructAlgResW vo) throws Exception {
-			String sql="INSERT INTO StructAlgResW(ip,dspstate,alarm_probability,coor_top,coor_left,coor_bottom,coor_right,alarm_type,is_alarm,ch_num,alarm_date)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+		public boolean doCreate(AlarmInfo vo) throws Exception {
+			String sql="INSERT INTO structalgresw(ip,dspstate,alarm_probability,coor_top,coor_left,coor_bottom,coor_right,alarm_type,is_alarm,ch_num,alarm_date)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 			this.pstmt=this.conn.prepareStatement(sql);
 			this.pstmt.setString(1, vo.getIp());
 			this.pstmt.setInt(2, vo.getDspstate());
@@ -36,8 +36,8 @@ public class StructAlgResWDAOImpl implements IStructAlgResWDAO {
 		}
 
 		@Override
-		public boolean doUpdate(StructAlgResW vo) throws Exception {
-			String sql="UPDATE StructAlgResW SET dspstate=?,alarm_probability=?,coor_top=?,coor_left=?,coor_bottom=?,coor_right=?,alarm_type=?,is_alarm=?,ch_num=?,alarm_date=? WHERE ip=?";
+		public boolean doUpdate(AlarmInfo vo) throws Exception {
+			String sql="UPDATE structalgresw SET dspstate=?,alarm_probability=?,coor_top=?,coor_left=?,coor_bottom=?,coor_right=?,alarm_type=?,is_alarm=?,ch_num=?,alarm_date=? WHERE ip=?";
 			this.pstmt=this.conn.prepareStatement(sql);
 			this.pstmt.setInt(1, vo.getDspstate());
 			this.pstmt.setFloat(2, vo.getAlarm_probability());
@@ -59,25 +59,25 @@ public class StructAlgResWDAOImpl implements IStructAlgResWDAO {
 			return false;
 		}
 		@Override
-		public StructAlgResW findById(String ip) throws Exception {
-			StructAlgResW vo=null;
-			String sql="SELECT ip FROM StructAlgResW WHERE ip=?";
+		public AlarmInfo findById(String ip) throws Exception {
+			AlarmInfo vo=null;
+			String sql="SELECT ip FROM structalgresw WHERE ip=?";
 			this.pstmt=this.conn.prepareStatement(sql);
 			this.pstmt.setString(1, ip);
 			ResultSet rs=this.pstmt.executeQuery();
 			if(rs.next()){
-				vo=new StructAlgResW();
+				vo=new AlarmInfo();
 				vo.setIp(rs.getString(1));
 			}
 			return vo;
 		}
 		@Override
-		public List<StructAlgResW> findAll() throws Exception {
+		public List<AlarmInfo> findAll() throws Exception {
 			// TODO Auto-generated method stub
 			return null;
 		}
 		@Override
-		public List<StructAlgResW> findAllSplit(Integer currentPage, Integer lineSize, String column, String keyWord)
+		public List<AlarmInfo> findAllSplit(Integer currentPage, Integer lineSize, String column, String keyWord)
 				throws Exception {
 			// TODO Auto-generated method stub
 			return null;

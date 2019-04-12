@@ -14,10 +14,12 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.FixedLengthFrameDecoder;
+import io.netty.handler.codec.serialization.ClassResolvers;
+import io.netty.handler.codec.serialization.ObjectDecoder;
 
 public class NettyServer {
     private static final Logger logger=LoggerFactory.getLogger(NettyServer.class);
-	private int port;
+	private int port;// 10.151.31.42
 
 	public NettyServer(int port) {
 		this.port = port;
@@ -33,11 +35,14 @@ public class NettyServer {
 			serverBootstrap.group(bossGroup, workGroup).
 			channel(NioServerSocketChannel.class).
 			option(ChannelOption.SO_BACKLOG, 1024).
+			childOption(ChannelOption.TCP_NODELAY, true).
+			childOption(ChannelOption.SO_KEEPALIVE, true).
 			childHandler(new ChannelInitializer<SocketChannel>() {
 
 				@Override
 				protected void initChannel(SocketChannel ch) throws Exception {
 					ch.pipeline().addLast(new FixedLengthFrameDecoder(36));//固定长度解码器
+					//ch.pipeline().addLast(new ObjectDecoder(1024*1024, ClassResolvers.cacheDisabled(this.getClass().getClassLoader())));
 					ch.pipeline().addLast(new NettyServerHandler());
 				}
 			});
