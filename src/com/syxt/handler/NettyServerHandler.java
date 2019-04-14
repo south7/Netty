@@ -8,15 +8,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.syxt.service.impl.AlarmInfoServiceImpl;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class NettyServerHandler extends ChannelInboundHandlerAdapter{
     private static final Logger logger=LoggerFactory.getLogger(NettyServerHandler.class);
-    private static AtomicInteger atomicInteger=new AtomicInteger();
+    private static final AtomicInteger atomicInteger=new AtomicInteger();
     //private int counter;
     static{
     	logger.info("统计客户端连接数线程启动");
@@ -32,7 +30,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 	@Override
 	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
 		 logger.debug("NettyServerHandler handlerRemoved调用"+" , 客户端ip: "+getClientIP(ctx));
-
+		 new OnlineStateHandler().setOffline(getClientIP(ctx));
 	}
 
 	@Override
@@ -46,7 +44,6 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		 logger.debug("NettyServerHandler channelInactive调用"+" , 客户端ip: "+getClientIP(ctx));
 		 atomicInteger.decrementAndGet();
-		 new OnlineStateHandler().setOffline(getClientIP(ctx));
 	}
 
 	@Override
@@ -70,7 +67,6 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		logger.error("NettyServerHandler异常"+" , 客户端ip: "+getClientIP(ctx)  ,   cause);
-		new OnlineStateHandler().setOffline(getClientIP(ctx));
 	}
 	
 	public String getClientIP(ChannelHandlerContext ctx){
