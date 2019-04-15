@@ -41,7 +41,6 @@ public class NettyServer {
 				@Override
 				protected void initChannel(SocketChannel ch) throws Exception {
 					ch.pipeline().addLast(new FixedLengthFrameDecoder(36));//固定长度解码器
-					//ch.pipeline().addLast(new ObjectDecoder(1024*1024, ClassResolvers.cacheDisabled(this.getClass().getClassLoader())));
 					ch.pipeline().addLast(new NettyServerHandler());
 				}
 			});

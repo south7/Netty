@@ -22,10 +22,11 @@ public class DeviceDAOImpl implements IDeviceDAO {
 
 	@Override
 	public boolean doUpdate(Device vo) throws Exception {
-		String sql="UPDATE device SET is_online=? WHERE ip=?";
+		String sql="UPDATE device SET is_online=?,time=?  WHERE ip=?";
 		this.pstmt=this.conn.prepareStatement(sql);
 		this.pstmt.setInt(1, vo.getIs_onLine());
-		this.pstmt.setString(2, vo.getClientIP());
+		this.pstmt.setString(2, vo.getStateChange_date());
+		this.pstmt.setString(3, vo.getClientIP());
 		return this.pstmt.executeUpdate()>0;
 	}
 

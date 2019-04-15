@@ -1,5 +1,8 @@
 package com.syxt.handler;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +24,7 @@ public class OnlineStateHandler {
 			Device vo = new Device();
 			vo.setClientIP(ip);
 			vo.setIs_onLine(1);
+			vo.setStateChange_date(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 			if (ServiceFactory.getIDeviceServiceInstance().update(vo)) {
 				logger.info("摄像机ip: " + ip + " 设置为在线状态成功");
 			} else {
@@ -36,6 +40,7 @@ public class OnlineStateHandler {
 			Device vo = new Device();
 			vo.setClientIP(ip);
 			vo.setIs_onLine(0);
+			vo.setStateChange_date(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 			if (ServiceFactory.getIDeviceServiceInstance().update(vo)) {
 				logger.info("摄像机ip: " + ip + " 设置为离线状态成功");
 			} else {

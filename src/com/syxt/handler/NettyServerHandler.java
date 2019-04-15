@@ -30,6 +30,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 	@Override
 	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
 		 logger.debug("NettyServerHandler handlerRemoved调用"+" , 客户端ip: "+getClientIP(ctx));
+		 atomicInteger.decrementAndGet();
 		 new OnlineStateHandler().setOffline(getClientIP(ctx));
 	}
 
@@ -43,7 +44,6 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		 logger.debug("NettyServerHandler channelInactive调用"+" , 客户端ip: "+getClientIP(ctx));
-		 atomicInteger.decrementAndGet();
 	}
 
 	@Override
@@ -56,7 +56,6 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 		ByteBuf data=(ByteBuf)msg;
 		logger.info("服务端收到数据 "+",客户端ip: "+getClientIP(ctx));
 		AlarmHandler.handle(data, getClientIP(ctx));
-		//ctx.writeAndFlush(data);
 	}
 
 	@Override
