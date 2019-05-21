@@ -10,6 +10,7 @@ import com.syxt.factory.ServiceFactory;
 import com.syxt.vo.AlarmInfo;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.util.ReferenceCountUtil;
 
 /**
  * 处理设备发送过来的报警消息
@@ -45,16 +46,20 @@ public class AlarmHandler {
 			vo.setCh_num(ch_num);
 			vo.setAlarm_date(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 			if(ServiceFactory.getIAlarmInfoServiceInstance().insert(vo)){
-				logger.warn("新增设备IP"+clientIP+"报警报文成功");
+				if(is_alarm==1)
+				logger.warn("收到设备IP"+clientIP+"报警");
 			}else{
 				if(ServiceFactory.getIAlarmInfoServiceInstance().update(vo)){
-					logger.info("修改设备IP"+clientIP+"报警报文成功");
+					if(is_alarm==1)
+					logger.warn("收到设备IP"+clientIP+"报警");
 				}else{
-					logger.warn("修改设备IP"+clientIP+"报警报文失败");
+					logger.error("修改设备IP"+clientIP+"报警报文失败,is_alarm:"+is_alarm+"");
 				}
 			}
 		} catch (Exception e) {
 			logger.error("处理设备发送过来的报警消息异常",e);
+		}finally{
+			ReferenceCountUtil.release(data);
 		}
 	}
 }

@@ -28,7 +28,7 @@ public class OnlineStateHandler {
 			if (ServiceFactory.getIDeviceServiceInstance().update(vo)) {
 				logger.info("摄像机ip: " + ip + " 设置为在线状态成功");
 			} else {
-				logger.warn("摄像机ip: " + ip + " 设置为在线状态失败");
+				logger.error("摄像机ip: " + ip + " 设置为在线状态失败");
 			}
 		} catch (Exception e) {
 			logger.error("摄像机设置为在线状态异常", e);
@@ -44,7 +44,7 @@ public class OnlineStateHandler {
 			if (ServiceFactory.getIDeviceServiceInstance().update(vo)) {
 				logger.info("摄像机ip: " + ip + " 设置为离线状态成功");
 			} else {
-				logger.warn("摄像机ip: " + ip + " 设置为离线状态失败");
+				logger.error("摄像机ip: " + ip + " 设置为离线状态失败");
 			}
 		} catch (Exception e) {
 			logger.error("摄像机设置为离线状态异常", e);

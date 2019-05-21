@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class DatabaseConnection {
   private static final String DBDRIVER="com.mysql.jdbc.Driver";
-  private static final String DBURL="jdbc:mysql://localhost:3306/yaan?useSSL=false";
+  private static final String DBURL="jdbc:mysql://localhost:3307/yaan?useSSL=false";
   private static final String DBUSER="root";
   private static final String PASSWORD="root";
   private Connection conn=null;

@@ -24,43 +24,43 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter{
 			public void run() {
 				logger.info("当前客户端连接数为: "+atomicInteger.get());
 			}
-		}, 0, 30, TimeUnit.SECONDS);
+		}, 0, 120, TimeUnit.SECONDS);
     }
 
 	@Override
 	public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
-		 logger.debug("NettyServerHandler handlerRemoved调用"+" , 客户端ip: "+getClientIP(ctx));
+		 //logger.debug("NettyServerHandler handlerRemoved调用"+" , 客户端ip: "+getClientIP(ctx));
 		 atomicInteger.decrementAndGet();
 		 new OnlineStateHandler().setOffline(getClientIP(ctx));
 	}
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-		logger.debug("NettyServerHandler channelActive调用"+" , 客户端ip: "+getClientIP(ctx));
+		//logger.debug("NettyServerHandler channelActive调用"+" , 客户端ip: "+getClientIP(ctx));
 		atomicInteger.incrementAndGet();
 		new OnlineStateHandler().setOnline(getClientIP(ctx));
 	}
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		 logger.debug("NettyServerHandler channelInactive调用"+" , 客户端ip: "+getClientIP(ctx));
+		//logger.debug("NettyServerHandler channelInactive调用"+" , 客户端ip: "+getClientIP(ctx));
 	}
 
 	@Override
 	public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-		logger.debug("NettyServerHandler channelUnregistered调用"+" , 客户端ip: "+getClientIP(ctx));
+		//logger.debug("NettyServerHandler channelUnregistered调用"+" , 客户端ip: "+getClientIP(ctx));
 	}
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		ByteBuf data=(ByteBuf)msg;
-		logger.info("服务端收到数据 "+",客户端ip: "+getClientIP(ctx));
+		//logger.info("服务端收到数据 "+",客户端ip: "+getClientIP(ctx));
 		AlarmHandler.handle(data, getClientIP(ctx));
 	}
 
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-		logger.debug("NettyServerHandler channelReadComplete调用"+" , 客户端ip: "+getClientIP(ctx));
+		//logger.debug("NettyServerHandler channelReadComplete调用"+" , 客户端ip: "+getClientIP(ctx));
 	}
 
 	@Override
