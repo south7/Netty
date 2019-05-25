@@ -1,0 +1,39 @@
+1.Netty学习前需要掌握知识
+  
+  -- 1.牢固的JAVA基础
+  -- 2.熟悉Linux服务器
+  -- 3.有基础的网络知识
+
+2.异步事件驱动NIO框架Netty介绍
+
+  -- 1.Netty是由JBOSS提供的一个java开源框架,是业界最流行的NIO框架，整合了多种协议(包括FTP,SMTP,HTTP等各种二进制文本协议)的实现经验，
+      API使用简单，框架成熟稳定，社区活跃，互联网、大数据、网络游戏、电信通信行业进过验证。
+
+  -- 2.使用Netty框架的产品
+       --- 1.搜索引擎框架 elasticsearch 
+       --- 2.Hadopp子项目Avro项目,使用Netty作为底层通信框架
+       --- 3.阿里巴巴开源的RPC框架 Dubbo
+
+3.Netty开发环境
+  -- 1.IDEA  +  JDK8  +   Netty4.x
+
+4.使用JDK自带BIO编写client-server通信
+
+  -- 1.BIO模式:同步阻塞，传统Socket编程，一客户端一线程
+  -- 2.Server核心代码:
+       ServerSocket server =new ServerSocket(port);
+       Socket socket=null;
+       while(true){
+        socket=server,accept();
+        new Thread(new xxxHandler(socket)).start();
+       }
+  -- 3.client核心代码:
+       Socket socket=new Socket(ip,port);
+       socket.getInputStream();
+       socket.getOutputStream();
+
+5.BIO编写client-server通信优缺点分析
+  -- 1.优点:模型简单，编码简单
+  -- 2.缺点:性能瓶颈，请求数和线程数 N:N关系，高并发情况下，cpu切换线程上下文损耗大
+  -- 3.案例：tomcat7之前，都是使用BIO,7之后使用NIO
+  -- 4.改进:伪NIO,使用线程池去处理业务逻辑
