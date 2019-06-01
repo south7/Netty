@@ -16,9 +16,10 @@ public class DatabaseConnection {
   private static final String PASSWORD="root";
   private Connection conn=null;
   private static final Logger logger=LoggerFactory.getLogger(DatabaseConnection.class);
-
-  public DatabaseConnection() {
-    	try {
+  private static final DataSource datasource = new DataSource();
+  
+  static{
+	    try {
 			PoolProperties p = new PoolProperties();
 			p.setUrl(DBURL);
 			p.setDriverClassName(DBDRIVER);
@@ -42,8 +43,14 @@ public class DatabaseConnection {
 			p.setJdbcInterceptors(
 			  "org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;"+
 			  "org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer");
-			DataSource datasource = new DataSource();
 			datasource.setPoolProperties(p);
+		} catch (Exception e) {
+			logger.error("初始化DataSource数据库连接池异常", e);
+		}
+  }
+  
+  public DatabaseConnection() {
+    	try {
 			this.conn=datasource.getConnection();
 		} catch (SQLException e) {
 			logger.error("获取数据库链接异常", e);
