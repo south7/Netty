@@ -51,4 +51,16 @@ public class OnlineStateHandler {
 		}
 
 	}
+	public void setOffline() {
+		try {
+			if (ServiceFactory.getIDeviceServiceInstance().update()) {
+				logger.info("服务启动后设置所有相机为离线状态成功");
+			} else {
+				logger.error("服务启动后设置所有相机为离线状态失败");
+			}
+		} catch (Exception e) {
+			logger.error("服务启动后设置所有相机为离线状态异常", e);
+		}
+
+	}
 }

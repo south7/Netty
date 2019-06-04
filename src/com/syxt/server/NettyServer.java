@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.syxt.handler.NettyServerHandler;
+import com.syxt.handler.OnlineStateHandler;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -21,6 +22,10 @@ public class NettyServer {
 
 	public NettyServer(int port) {
 		this.port = port;
+	}
+	static{
+		//服务器启动设置所有设备为离线转态
+		new OnlineStateHandler().setOffline();
 	}
 	/**
 	 * 启动流程

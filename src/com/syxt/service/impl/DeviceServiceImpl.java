@@ -19,6 +19,17 @@ public class DeviceServiceImpl implements IDeviceService {
 		}
 	}
 
+	@Override
+	public boolean update() throws Exception {
+		try {
+			 return DAOFactory.getIDeviceDAOInstance(this.dbc.getConnection()).doUpdate();
+		} catch (Exception e) {
+			throw e;
+		}finally {
+			dbc.close();
+		}
+	}
+
 	
 	
 

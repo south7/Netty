@@ -87,6 +87,11 @@ public class AlarmInfoDAOImpl implements IAlarmInfoDAO {
 			// TODO Auto-generated method stub
 			return null;
 		}
+		@Override
+		public boolean doUpdate() throws Exception {
+			// TODO Auto-generated method stub
+			return false;
+		}
 
 
 	

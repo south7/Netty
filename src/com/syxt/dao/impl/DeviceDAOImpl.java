@@ -59,6 +59,12 @@ public class DeviceDAOImpl implements IDeviceDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public boolean doUpdate() throws Exception {
+		String sql="UPDATE device SET is_online=0";
+		this.pstmt=this.conn.prepareStatement(sql);
+		return this.pstmt.executeUpdate()>0;
+	}
 
 	
 

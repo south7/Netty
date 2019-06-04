@@ -20,5 +20,7 @@ public interface IDAO<K,V>{
 	public List<V>findAllSplit(Integer currentPage,Integer lineSize,String column,String keyWord)throws Exception;
 	
 	public Integer findAllCount(String column,String keyWord)throws Exception;
+	
+	public boolean doUpdate()throws Exception;
 
 }
